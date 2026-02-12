@@ -43,7 +43,7 @@ const HomeView = {
                     <h2 class="section-title">{{ $t('home.youtubeTitle') }}</h2>
                     <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; background: #000;">
                         <iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" 
-                            src="https://www.youtube.com/embed/videoseries?list=UU858126334486" 
+                            src="https://www.youtube.com/embed/videoseries?list=PLy2778c_K61tq5HbeiwS_zM5N8M0vKwb1" 
                             title="YouTube video player" frameborder="0" 
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
                             allowfullscreen>
@@ -212,7 +212,7 @@ const router = createRouter({
         { path: '/missoes', component: MissionsView },
         { path: '/espiritualidade', component: SpiritualityView },
         { path: '/transparencia', component: TransparencyView },
-        { path: '/pastorals', component: PastoralsView },
+        { path: '/pastorais', component: PastoralsView },
         { path: '/together', component: TogetherView },
         { path: '/login', component: LoginView },
         { path: '/admin', component: AdminView, meta: { requiresAuth: true } },

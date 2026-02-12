@@ -54,7 +54,7 @@ export default {
         cardTitle: 'Be part of this story',
         btnMonthly: 'Donate Monthly',
         btnOnce: 'One-time Donation',
-        pix: 'PIX Key: pix@auxiliabrasil.org',
+        pix: 'PIX Key: pix{\'@\'}auxiliabrasil.org',
         testimonialsTitle: 'Transformed Lives'
     },
     admin: {

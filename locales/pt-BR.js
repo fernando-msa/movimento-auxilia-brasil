@@ -54,7 +54,7 @@ export default {
         cardTitle: 'Faça parte desta história',
         btnMonthly: 'Quero Doar Mensalmente',
         btnOnce: 'Doação Única',
-        pix: 'Chave PIX: pix@auxiliabrasil.org',
+        pix: 'Chave PIX: pix{\'@\'}auxiliabrasil.org',
         testimonialsTitle: 'Vidas Transformadas'
     },
     admin: {

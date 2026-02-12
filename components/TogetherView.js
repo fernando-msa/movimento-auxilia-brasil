@@ -29,12 +29,12 @@ export default {
                             <h3 style="margin-bottom: 20px; color: var(--secondary-color);">{{ $t('together.cardTitle') }}</h3>
                             
                             <div style="margin-bottom: 20px;">
-                                <button style="background: var(--primary-color); color: white; border: none; padding: 15px 30px; font-size: 1.2rem; border-radius: 50px; cursor: pointer; width: 100%; font-weight: bold; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+                                <button @click="openModal('monthly')" style="background: var(--primary-color); color: white; border: none; padding: 15px 30px; font-size: 1.2rem; border-radius: 50px; cursor: pointer; width: 100%; font-weight: bold; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
                                     {{ $t('together.btnMonthly') }}
                                 </button>
                             </div>
                             
-                            <button style="background: transparent; border: 2px solid var(--primary-color); color: var(--primary-color); padding: 10px 25px; font-size: 1rem; border-radius: 50px; cursor: pointer; width: 100%; font-weight: bold;">
+                            <button @click="openModal('once')" style="background: transparent; border: 2px solid var(--primary-color); color: var(--primary-color); padding: 10px 25px; font-size: 1rem; border-radius: 50px; cursor: pointer; width: 100%; font-weight: bold;">
                                 {{ $t('together.btnOnce') }}
                             </button>
 
@@ -44,6 +44,7 @@ export default {
                 </div>
             </div>
 
+            <!-- Testimonials -->
             <div style="background: var(--light-bg); padding: 60px 20px; text-align: center;">
                 <div class="container">
                     <h2 style="margin-bottom: 40px; color: var(--secondary-color);">{{ $t('together.testimonialsTitle') }}</h2>
@@ -72,6 +73,66 @@ export default {
                     </div>
                 </div>
             </div>
+
+            <!-- Donation Modal -->
+            <div v-if="showModal" style="position: fixed; top:0; left:0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); display: flex; justify-content: center; align-items: center; z-index: 3000;">
+                <div style="background: white; padding: 30px; border-radius: 8px; width: 90%; max-width: 500px; position: relative;">
+                    <button @click="showModal = false" style="position: absolute; top: 10px; right: 10px; border: none; background: none; font-size: 1.5rem; cursor: pointer;">&times;</button>
+                    
+                    <h2 style="color: var(--secondary-color); margin-bottom: 20px;">
+                        {{ modalType === 'monthly' ? 'Cadastro Mensal' : 'Doação Única' }}
+                    </h2>
+
+                    <div v-if="modalType === 'monthly'">
+                        <p style="margin-bottom: 15px;">Preencha seus dados para recebermos sua ajuda mensalmente.</p>
+                        <form @submit.prevent="submitForm">
+                            <input type="text" placeholder="Nome Completo" required style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ddd; border-radius: 4px;">
+                            <input type="email" placeholder="E-mail" required style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ddd; border-radius: 4px;">
+                            <input type="tel" placeholder="Telefone / WhatsApp" required style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ddd; border-radius: 4px;">
+                            <select style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ddd; border-radius: 4px;">
+                                <option>R$ 30,00 / mês</option>
+                                <option>R$ 50,00 / mês</option>
+                                <option>R$ 100,00 / mês</option>
+                                <option>Outro valor</option>
+                            </select>
+                            <button type="submit" style="width: 100%; background: var(--primary-color); color: white; border: none; padding: 12px; border-radius: 4px; font-weight: bold; cursor: pointer;">
+                                Finalizar Cadastro
+                            </button>
+                        </form>
+                    </div>
+
+                    <div v-else>
+                        <p style="margin-bottom: 15px;">Escolha a forma de pagamento:</p>
+                        <div style="display: grid; gap: 10px;">
+                            <button style="padding: 15px; border: 1px solid #ddd; border-radius: 4px; background: white; cursor: pointer; display: flex; align-items: center; gap: 10px;">
+                                <span style="font-size: 1.5rem;">💠</span> PIX (Copia e Cola)
+                            </button>
+                            <button style="padding: 15px; border: 1px solid #ddd; border-radius: 4px; background: white; cursor: pointer; display: flex; align-items: center; gap: 10px;">
+                                <span style="font-size: 1.5rem;">📄</span> Boleto Bancário
+                            </button>
+                            <button style="padding: 15px; border: 1px solid #ddd; border-radius: 4px; background: white; cursor: pointer; display: flex; align-items: center; gap: 10px;">
+                                <span style="font-size: 1.5rem;">💳</span> Cartão de Crédito
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-    `
+    `,
+    data() {
+        return {
+            showModal: false,
+            modalType: 'monthly' // monthly or once
+        }
+    },
+    methods: {
+        openModal(type) {
+            this.modalType = type;
+            this.showModal = true;
+        },
+        submitForm() {
+            alert("Cadastro realizado! Entraremos em contato.");
+            this.showModal = false;
+        }
+    }
 }
