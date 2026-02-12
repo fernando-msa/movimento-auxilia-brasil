@@ -308,7 +308,7 @@ const router = createRouter({
         { path: '/', component: HomeView },
         { path: '/missoes', component: MissionsView },
         { path: '/espiritualidade', component: SpiritualityView },
-        { path: '/transparencia', component: TransparencyView },
+        { path: '/transparencia', component: TogetherView },
         { path: '/pastorais', component: PastoralsView },
         { path: '/together', component: TogetherView },
         { path: '/login', component: LoginView },

@@ -92,10 +92,28 @@
         </footer>
     </div>
 
+    <!-- Radio Player (Fixed Bottom) -->
+    <div class="radio-player"
+        style="position: fixed; bottom: 0; left: 0; width: 100%; background: #222; color: white; padding: 10px; display: flex; align-items: center; justify-content: center; gap: 20px; z-index: 9999; box-shadow: 0 -2px 10px rgba(0,0,0,0.5);">
+        <div style="display: flex; align-items: center; gap: 10px;">
+            <img src="https://cdn-icons-png.flaticon.com/512/59/59284.png" style="width: 30px; filter: invert(1);">
+            <div>
+                <strong style="display: block; font-size: 0.9rem;">Rádio Cultura FM 107.5</strong>
+                <span style="font-size: 0.8rem; color: #aaa;">Aracaju / SE - Ao Vivo</span>
+            </div>
+        </div>
+        <audio controls style="height: 30px; max-width: 300px;">
+            <source src="https://ice.fabricahost.com.br/culturafmarcaju" type="audio/mpeg">
+            <!-- Fallback / Try different common stream structures if fails -->
+            <source src="http://streaming.fabricahost.com.br:8000/culturafmaracaju" type="audio/mpeg">
+            Seu navegador não suporta áudio.
+        </audio>
+    </div>
+
     <!-- App Scripts -->
     <script src="firebase-config.js"></script>
     <script src="seed.js"></script>
-    <script type="module" src="app.js?v=8"></script>
+    <script type="module" src="app.js?v=9"></script>
 </body>
 
 </html>
