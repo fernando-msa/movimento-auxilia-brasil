@@ -45,12 +45,29 @@ const HomeView = {
                     <h2 class="section-title">Siga-nos no Instagram</h2>
                     <p style="margin-bottom: 20px; font-size: 1.2rem;">@somosauxilia</p>
                     
-                    <!-- Simulated Feed Grid -->
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; margin-bottom: 30px; opacity: 0.8;">
-                        <img src="https://placehold.co/300x300/C59D5F/FFF?text=Post+1" style="width:100%; aspect-ratio:1; object-fit:cover; border-radius:8px;">
-                        <img src="https://placehold.co/300x300/5D4037/FFF?text=Post+2" style="width:100%; aspect-ratio:1; object-fit:cover; border-radius:8px;">
-                        <img src="https://placehold.co/300x300/333/FFF?text=Post+3" style="width:100%; aspect-ratio:1; object-fit:cover; border-radius:8px;">
-                        <img src="https://placehold.co/300x300/999/FFF?text=Post+4" style="width:100%; aspect-ratio:1; object-fit:cover; border-radius:8px;">
+                    <!-- 
+                        ÁREA DO WIDGET DO INSTAGRAM
+                        Para tornar o feed dinâmico (ao vivo), gere um código grátis em sites como:
+                        - SnapWidget: https://snapwidget.com
+                        - Elfsight: https://elfsight.com
+                        - Fouita: https://fouita.com
+                        E cole o código (iframe ou script) AQUI, substituindo a div 'simulated-feed' abaixo.
+                    -->
+
+                    <!-- Simulated Feed Grid (Fallback) -->
+                    <div id="instagram-feed-container" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; margin-bottom: 30px; opacity: 0.8;">
+                        <a href="https://www.instagram.com/somosauxilia" target="_blank" style="display:block; overflow:hidden; border-radius:8px;">
+                            <img src="https://placehold.co/300x300/C59D5F/FFF?text=Retiro+2026" style="width:100%; aspect-ratio:1; object-fit:cover; transition: transform 0.3s;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
+                        </a>
+                        <a href="https://www.instagram.com/somosauxilia" target="_blank" style="display:block; overflow:hidden; border-radius:8px;">
+                            <img src="https://placehold.co/300x300/5D4037/FFF?text=Santa+Missa" style="width:100%; aspect-ratio:1; object-fit:cover; transition: transform 0.3s;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
+                        </a>
+                        <a href="https://www.instagram.com/somosauxilia" target="_blank" style="display:block; overflow:hidden; border-radius:8px;">
+                            <img src="https://placehold.co/300x300/333/FFF?text=Ação+Social" style="width:100%; aspect-ratio:1; object-fit:cover; transition: transform 0.3s;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
+                        </a>
+                        <a href="https://www.instagram.com/somosauxilia" target="_blank" style="display:block; overflow:hidden; border-radius:8px;">
+                            <img src="https://placehold.co/300x300/999/FFF?text=Jovens" style="width:100%; aspect-ratio:1; object-fit:cover; transition: transform 0.3s;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
+                        </a>
                     </div>
 
                     <a href="https://www.instagram.com/somosauxilia" target="_blank" 
