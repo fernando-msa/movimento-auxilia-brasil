@@ -1,15 +1,27 @@
 :root {
-    --primary-color: #C59D5F;
-    /* Shalom Gold */
-    --secondary-color: #5D4037;
-    /* Brown/Dark Earth */
+    /* Identidade Movimento Auxilia (Inspirado em @somosauxilia / Salesianos) */
+    /* Azul Salesiano/Auxilia: Mais vibrante e jovem */
+    --primary-color: #00458b;
+    /* Azul Royal */
+    --secondary-color: #fca311;
+    /* Amarelo/Laranja vibrante (Juventude/Luz) */
+
+    /* Cores de Apoio */
+    --accent-color: #e63946;
+    /* Vermelho (Paixão/Caridade) */
+    --light-bg: #f0f4f8;
+    /* Fundo claro azulado */
     --text-color: #333333;
-    --light-bg: #f8f8f8;
-    --white: #ffffff;
+    --footer-bg: #00458b;
+    /* Azul no rodapé também */
+    --header-bg: #ffffff;
     --border-color: #e0e0e0;
-    --link-color: #007bff;
-    --font-heading: 'Georgia', 'Times New Roman', serif;
-    --font-body: 'Segoe UI', 'Helvetica Neue', sans-serif;
+    --link-color: #00458b;
+    --white: #ffffff;
+
+    /* Fontes */
+    --font-heading: 'Montserrat', sans-serif;
+    --font-body: 'Open Sans', sans-serif;
 }
 
 * {
