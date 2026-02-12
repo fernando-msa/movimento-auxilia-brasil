@@ -2,13 +2,14 @@ export default {
     template: `
         <div class="container" style="padding: 40px 20px;">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
-                <h1 style="color: var(--secondary-color);">Painel Administrativo</h1>
-                <button @click="logout" style="background: #dc3545; color: white; border: none; padding: 8px 15px; border-radius: 4px; cursor: pointer;">Sair</button>
+                <h1 style="color: var(--secondary-color);">{{ $t('admin.title') }}</h1>
+                <button @click="logout" style="background: #dc3545; color: white; border: none; padding: 8px 15px; border-radius: 4px; cursor: pointer;">{{ $t('admin.logout') }}</button>
             </div>
 
             <div class="tabs">
-                <button :class="{ active: currentTab === 'activities' }" @click="currentTab = 'activities'" class="tab-btn">Notícias/Eventos</button>
-                <button :class="{ active: currentTab === 'missions' }" @click="currentTab = 'missions'" class="tab-btn">Missões</button>
+                <button :class="{ active: currentTab === 'activities' }" @click="currentTab = 'activities'" class="tab-btn">{{ $t('admin.tabs.activities') }}</button>
+                <button :class="{ active: currentTab === 'missions' }" @click="currentTab = 'missions'" class="tab-btn">{{ $t('admin.tabs.missions') }}</button>
+                <button :class="{ active: currentTab === 'profile' }" @click="currentTab = 'profile'" class="tab-btn">{{ $t('admin.tabs.profile') }}</button>
             </div>
 
             <!-- Activities CRUD -->
@@ -39,6 +40,31 @@ export default {
                 </table>
             </div>
             
+            <!-- Profile Tab -->
+            <div v-if="currentTab === 'profile'" style="background: white; padding: 30px; border-radius: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); max-width: 600px; margin: 0 auto;">
+                <div style="text-align: center; margin-bottom: 30px;">
+                    <img :src="profile.photoURL || 'https://placehold.co/150'" style="width: 150px; height: 150px; border-radius: 50%; object-fit: cover; border: 4px solid var(--primary-color);">
+                </div>
+                
+                <form @submit.prevent="saveProfile">
+                    <div style="margin-bottom: 15px;">
+                        <label style="display: block; margin-bottom: 5px; font-weight: bold;">Foto URL</label>
+                        <input v-model="profile.photoURL" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;" placeholder="https://...">
+                    </div>
+                    <div style="margin-bottom: 15px;">
+                        <label style="display: block; margin-bottom: 5px; font-weight: bold;">{{ $t('admin.profile.role') }}</label>
+                        <input v-model="profile.role" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;" placeholder="Ex: Coordenador">
+                    </div>
+                    <div style="margin-bottom: 15px;">
+                        <label style="display: block; margin-bottom: 5px; font-weight: bold;">{{ $t('admin.profile.time') }}</label>
+                        <input v-model="profile.joinDate" type="date" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;">
+                    </div>
+                    <button type="submit" style="width: 100%; background: var(--primary-color); color: white; border: none; padding: 12px; border-radius: 4px; font-weight: bold; cursor: pointer;">
+                        {{ $t('admin.profile.save') }}
+                    </button>
+                </form>
+            </div>
+
             <!-- Simple Add Modal -->
             <div v-if="showAddModal" style="position: fixed; top:0; left:0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: flex; justify-content: center; align-items: center; z-index: 2000;">
                 <div style="background: white; padding: 30px; border-radius: 8px; width: 90%; max-width: 500px;">
@@ -67,17 +93,22 @@ export default {
             items: [],
             loading: true,
             showAddModal: false,
-            newItem: { title: '', description: '', image: '', category: 'Notícia' }
+            newItem: { title: '', description: '', image: '', category: 'Notícia' },
+            profile: { photoURL: '', role: '', joinDate: '' }
         }
     },
     mounted() {
         this.loadItems();
     },
     watch: {
-        currentTab() { this.loadItems(); }
+        currentTab(val) {
+            if (val === 'profile') this.loadProfile();
+            else this.loadItems();
+        }
     },
     methods: {
         async loadItems() {
+            if (this.currentTab === 'profile') return;
             this.loading = true;
             try {
                 const snapshot = await window.db.collection(this.currentTab).get();
@@ -86,6 +117,36 @@ export default {
                 console.error(e);
             } finally {
                 this.loading = false;
+            }
+        },
+        async loadProfile() {
+            const user = window.auth.currentUser;
+            if (!user) return;
+
+            try {
+                const doc = await window.db.collection('users').doc(user.uid).get();
+                if (doc.exists) {
+                    this.profile = doc.data();
+                } else {
+                    this.profile = { photoURL: user.photoURL || '', role: '', joinDate: '' };
+                }
+            } catch (e) {
+                console.error("Erro ao carregar perfil", e);
+            }
+        },
+        async saveProfile() {
+            const user = window.auth.currentUser;
+            if (!user) return;
+
+            try {
+                await window.db.collection('users').doc(user.uid).set(this.profile, { merge: true });
+                // Also update Auth profile if possible
+                if (this.profile.photoURL) {
+                    await user.updateProfile({ photoURL: this.profile.photoURL });
+                }
+                alert("Perfil salvo com sucesso!");
+            } catch (e) {
+                alert("Erro ao salvar: " + e.message);
             }
         },
         async addItem() {

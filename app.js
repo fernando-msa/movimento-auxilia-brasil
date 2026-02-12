@@ -17,14 +17,14 @@ const HomeView = {
         <div class="home-view">
             <!-- Hero Section -->
             <div class="hero">
-                <h1>Bem-vindo ao Auxilia Brasil</h1>
-                <p>Um movimento de jovens para jovens, levando o carisma salesiano a todos os cantos.</p>
+                <h1>{{ $t('home.heroTitle') }}</h1>
+                <p>{{ $t('home.heroSubtitle') }}</p>
             </div>
 
             <div class="container">
                 <h2 class="section-title">{{ $t('home.upcoming') }}</h2>
                 
-                <div v-if="loading" class="loading">Carregando notícias...</div>
+                <div v-if="loading" class="loading">{{ $t('home.loading') }}</div>
                 
                 <div v-else class="grid-cards">
                     <article class="card" v-for="activity in activities" :key="activity.id">
@@ -33,9 +33,22 @@ const HomeView = {
                             <span class="card-category">{{ activity.category || 'Evento' }}</span>
                             <h3 class="card-title">{{ activity.title }}</h3>
                             <p class="card-text">{{ activity.description }}</p>
-                            <a href="#" class="btn-read">Ler mais &rarr;</a>
+                            <a href="#" class="btn-read">{{ $t('home.readMore') }} &rarr;</a>
                         </div>
                     </article>
+                </div>
+
+                <!-- Youtube Section -->
+                <div style="margin-top: 60px;">
+                    <h2 class="section-title">{{ $t('home.youtubeTitle') }}</h2>
+                    <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; background: #000;">
+                        <iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" 
+                            src="https://www.youtube.com/embed/videoseries?list=UU858126334486" 
+                            title="YouTube video player" frameborder="0" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen>
+                        </iframe>
+                    </div>
                 </div>
             </div>
         </div>
@@ -71,12 +84,12 @@ const MissionsView = {
             </div>
             <div style="margin-top: 30px; display: grid; gap: 20px; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr))">
                 <div class="card" style="padding: 20px;">
-                    <h3 style="color: var(--secondary-color);">Missão Aracaju</h3>
-                    <p>Rua de Exemplo, 123 - Centro.</p>
+                    <h3 style="color: var(--secondary-color);">{{ $t('missions.aracaju') }}</h3>
+                    <p>{{ $t('missions.aracajuDesc') }}</p>
                 </div>
                 <div class="card" style="padding: 20px;">
-                    <h3 style="color: var(--secondary-color);">Missão Fortaleza</h3>
-                    <p>Av. Beira Mar, 456 - Meireles.</p>
+                    <h3 style="color: var(--secondary-color);">{{ $t('missions.fortaleza') }}</h3>
+                    <p>{{ $t('missions.fortalezaDesc') }}</p>
                 </div>
             </div>
         </div>
