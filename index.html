@@ -35,6 +35,10 @@
                 <a href="#" @click.prevent="changeLang('pt-BR')">PT</a>
                 <a href="#" @click.prevent="changeLang('es')">ES</a>
                 <a href="#" @click.prevent="changeLang('en')">EN</a>
+                <button @click="toggleDarkMode"
+                    style="background: none; border: 1px solid rgba(0,0,0,0.2); padding: 2px 8px; border-radius: 10px; cursor: pointer; margin-left: 10px;">
+                    {{ isDarkMode ? '☀️' : '🌙' }}
+                </button>
                 <a href="#/together"
                     style="background: var(--primary-color); padding: 5px 10px; border-radius: 4px; color: white; font-weight: bold;">Together</a>
                 <a v-if="!user" href="#/login">Login</a>
@@ -49,25 +53,8 @@
                     Movimento <span>Auxilia</span> Brasil
                 </div>
 
-                <!-- Radio Player (Header) -->
-                <div class="radio-player-header"
-                    style="display: flex; align-items: center; gap: 10px; margin: 0 20px; background: rgba(0,0,0,0.2); padding: 5px 15px; border-radius: 50px;">
-                    <span style="font-size: 1.2rem;">📻</span>
-                    <div style="line-height: 1;">
-                        <span style="display: block; font-size: 0.7rem; color: #ccc;">AO VIVO</span>
-                        <strong style="font-size: 0.9rem; color: white;">Rádio Cultura 107.5</strong>
-                    </div>
-                    <audio id="header-radio" controls style="height: 30px; width: 150px; margin-left: 10px;">
-                        <!-- Using direct stream (HTTP). Will fail on HTTPS/Mixed Content, so user must use Popup. -->
-                        <source src="http://streaming.fabricahost.com.br:8000/culturafmaracaju" type="audio/mpeg">
-                    </audio>
-                    <a href="http://streaming.fabricahost.com.br:8000/culturafmaracaju"
-                        onclick="window.open(this.href, 'radio', 'width=300,height=200'); return false;"
-                        style="background: var(--primary-color); color: white; text-decoration: none; font-size: 0.7rem; padding: 5px 8px; border-radius: 4px; display: flex; align-items: center; gap: 5px; margin-left: 10px; white-space: nowrap;"
-                        title="Abrir em janela separada caso não toque">
-                        <span>🔗</span> Popup
-                    </a>
-                </div>
+                <!-- Radio removed as per user request -->
+                <!-- Use Footer link instead -->
 
                 <button class="mobile-toggle" @click="toggleMenu">☰</button>
 
@@ -89,27 +76,81 @@
         </main>
 
         <footer>
-            <div class="container">
-                <div class="footer-socials" style="margin-bottom: 20px;">
-                    <a href="https://twitter.com/somosauxilia" target="_blank" style="margin: 0 10px;">
-                        <img src="https://cdn-icons-png.flaticon.com/512/5969/5969020.png"
-                            style="width: 30px; filter: brightness(0) invert(1);">
-                    </a>
-                    <a href="https://www.instagram.com/somosauxilia/" target="_blank" style="margin: 0 10px;">
-                        <img src="https://cdn-icons-png.flaticon.com/512/1384/1384063.png"
-                            style="width: 30px; filter: brightness(0) invert(1);">
-                    </a>
-                    <a href="https://www.facebook.com/somosauxilia" target="_blank" style="margin: 0 10px;">
-                        <img src="https://cdn-icons-png.flaticon.com/512/1384/1384053.png"
-                            style="width: 30px; filter: brightness(0) invert(1);">
-                    </a>
-                    <a href="https://www.youtube.com/somosauxilia" target="_blank" style="margin: 0 10px;">
-                        <img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png"
-                            style="width: 30px; filter: brightness(0) invert(1);">
-                    </a>
+            <div class="container"
+                style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 40px; padding: 40px 20px;">
+                <!-- Section 1: Brand & Social -->
+                <div style="flex: 1; min-width: 250px;">
+                    <h3 style="color: var(--white); margin-bottom: 20px;">Movimento Auxilia</h3>
+                    <p style="margin-bottom: 20px; opacity: 0.8;">Evangelizando com alegria e carisma.</p>
+
+                    <div class="footer-socials" style="display: flex; gap: 15px;">
+                        <a href="https://twitter.com/somosauxilia" target="_blank" title="X (Twitter)">
+                            <img src="https://cdn-icons-png.flaticon.com/512/5969/5969020.png" style="width: 24px;">
+                            <!-- Colored or controlled by CSS -->
+                        </a>
+                        <a href="https://www.instagram.com/somosauxilia/" target="_blank" title="Instagram">
+                            <img src="https://cdn-icons-png.flaticon.com/512/1384/1384063.png" style="width: 24px;">
+                        </a>
+                        <a href="https://www.facebook.com/somosauxilia" target="_blank" title="Facebook">
+                            <img src="https://cdn-icons-png.flaticon.com/512/1384/1384053.png" style="width: 24px;">
+                        </a>
+                        <a href="https://www.youtube.com/somosauxilia" target="_blank" title="YouTube">
+                            <img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png" style="width: 24px;">
+                        </a>
+                    </div>
                 </div>
+
+                <!-- Section 2: Mapa do Site -->
+                <div style="flex: 1; min-width: 200px;">
+                    <h4
+                        style="color: var(--secondary-color); margin-bottom: 15px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 5px;">
+                        Mapa do Site</h4>
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="margin-bottom: 8px;"><router-link to="/"
+                                style="color: var(--white); text-decoration: none; opacity: 0.8;">Início</router-link>
+                        </li>
+                        <li style="margin-bottom: 8px;"><router-link to="/missoes"
+                                style="color: var(--white); text-decoration: none; opacity: 0.8;">Missões</router-link>
+                        </li>
+                        <li style="margin-bottom: 8px;"><router-link to="/espiritualidade"
+                                style="color: var(--white); text-decoration: none; opacity: 0.8;">Espiritualidade</router-link>
+                        </li>
+                        <li style="margin-bottom: 8px;"><router-link to="/transparencia"
+                                style="color: var(--white); text-decoration: none; opacity: 0.8;">Transparência
+                                (Juntos)</router-link></li>
+                        <li style="margin-bottom: 8px;"><router-link to="/pastorais"
+                                style="color: var(--white); text-decoration: none; opacity: 0.8;">Pastorais</router-link>
+                        </li>
+                        <li style="margin-bottom: 8px;"><a href="#/login"
+                                style="color: var(--white); text-decoration: none; opacity: 0.8;">Área do Membro</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Section 3: Links Úteis & Rádio -->
+                <div style="flex: 1; min-width: 200px;">
+                    <h4
+                        style="color: var(--secondary-color); margin-bottom: 15px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 5px;">
+                        Links Úteis</h4>
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="margin-bottom: 8px;">
+                            <a href="http://streaming.fabricahost.com.br:8000/culturafmaracaju" target="_blank"
+                                style="color: var(--white); text-decoration: none; display: flex; align-items: center; gap: 5px;">
+                                <span>📻</span> Rádio Cultura FM 107.5
+                            </a>
+                        </li>
+                        <li style="margin-bottom: 8px;"><router-link to="/politica-privacidade"
+                                style="color: var(--white); text-decoration: none; opacity: 0.8;">Política de
+                                Privacidade</router-link></li>
+                        <li style="margin-bottom: 8px;"><router-link to="/termos-uso"
+                                style="color: var(--white); text-decoration: none; opacity: 0.8;">Termos de
+                                Uso</router-link></li>
+                    </ul>
+                </div>
+            </div>
+            <div
+                style="text-align: center; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px; color: rgba(255,255,255,0.5); font-size: 0.8rem;">
                 <p>&copy; 2026 Movimento Auxilia Brasil - Todos os direitos reservados.</p>
-                <p>Evangelizando com alegria e carisma.</p>
             </div>
         </footer>
     </div>
@@ -121,6 +162,17 @@
     <script src="firebase-config.js"></script>
     <script src="seed.js"></script>
     <script type="module" src="app.js?v=9"></script>
+    <!-- V-Libras Widget -->
+    <div vw class="enabled">
+        <div vw-access-button class="active"></div>
+        <div vw-plugin-wrapper>
+            <div class="vw-plugin-top-wrapper"></div>
+        </div>
+    </div>
+    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+    <script>
+        new window.VLibras.Widget('https://vlibras.gov.br/app');
+    </script>
 </body>
 
 </html>
