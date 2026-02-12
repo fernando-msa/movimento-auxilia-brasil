@@ -1,27 +1,58 @@
 :root {
-    /* Identidade Movimento Auxilia (Inspirado em @somosauxilia / Salesianos) */
-    /* Azul Salesiano/Auxilia: Mais vibrante e jovem */
-    --primary-color: #00458b;
-    /* Azul Royal */
-    --secondary-color: #fca311;
-    /* Amarelo/Laranja vibrante (Juventude/Luz) */
+    /* Paleta "Calma" (Tranquila de ver) */
+    --primary-color: #4a90e2;
+    /* Azul Suave */
+    --secondary-color: #f5a623;
+    /* Laranja Suave */
 
     /* Cores de Apoio */
-    --accent-color: #e63946;
-    /* Vermelho (Paixão/Caridade) */
-    --light-bg: #f0f4f8;
-    /* Fundo claro azulado */
-    --text-color: #333333;
-    --footer-bg: #00458b;
-    /* Azul no rodapé também */
+    --bg-color: #f9f9f9;
+    /* Branco Off-White para o fundo */
+    --card-bg: #ffffff;
+    /* Branco Puro para cartões */
+    --text-color: #4a4a4a;
+    /* Cinza Escuro (menos cansativo que preto) */
+    --footer-bg: #2c3e50;
+    /* Azul Petróleo Escuro */
     --header-bg: #ffffff;
-    --border-color: #e0e0e0;
-    --link-color: #00458b;
+    --border-color: #e6e6e6;
+    --link-color: #4a90e2;
     --white: #ffffff;
 
     /* Fontes */
     --font-heading: 'Montserrat', sans-serif;
     --font-body: 'Open Sans', sans-serif;
+}
+
+/* Modo Noturno */
+.dark-mode {
+    --primary-color: #64b5f6;
+    /* Azul mais claro para contraste dark */
+    --secondary-color: #ffb74d;
+
+    --bg-color: #121212;
+    /* Preto Suave */
+    --card-bg: #1e1e1e;
+    /* Cinza Chumbo */
+    --text-color: #e0e0e0;
+    /* Cinza Claro */
+    --footer-bg: #000000;
+    --header-bg: #1e1e1e;
+    --border-color: #333333;
+    --link-color: #82b1ff;
+    --white: #e0e0e0;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* Ensure Footer uses footer-bg specifically */
+footer {
+    background-color: var(--footer-bg) !important;
+    color: var(--white);
 }
 
 * {
