@@ -58,9 +58,15 @@
                         <strong style="font-size: 0.9rem; color: white;">Rádio Cultura 107.5</strong>
                     </div>
                     <audio id="header-radio" controls style="height: 30px; width: 150px; margin-left: 10px;">
-                        <!-- Using direct stream - Note: Mixed Content (HTTP) might be blocked on HTTPS deploy. User must allow or use proxy. -->
-                        <source src="http://streaming.fabricahost.com.br:8000/culturafmaracaju" type="audio/mpeg">
+                        <!-- Try HTTPS. If fails, user uses popup. -->
+                        <source src="https://streaming.fabricahost.com.br:8000/culturafmaracaju" type="audio/mpeg">
                     </audio>
+                    <a href="http://streaming.fabricahost.com.br:8000/culturafmaracaju"
+                        onclick="window.open(this.href, 'radio', 'width=300,height=200'); return false;"
+                        style="background: var(--primary-color); color: white; text-decoration: none; font-size: 0.7rem; padding: 5px 8px; border-radius: 4px; display: flex; align-items: center; gap: 5px; margin-left: 10px; white-space: nowrap;"
+                        title="Abrir em janela separada caso não toque">
+                        <span>🔗</span> Popup
+                    </a>
                 </div>
 
                 <button class="mobile-toggle" @click="toggleMenu">☰</button>

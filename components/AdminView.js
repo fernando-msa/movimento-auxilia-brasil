@@ -143,45 +143,49 @@ export default {
                 console.error("Erro ao carregar perfil", e);
             }
         },
-        try {
-            await window.db.collection('users').doc(user.uid).set(this.profile, { merge: true });
-            // Update Auth profile
-            const updates = {};
-            if(this.profile.photoURL) updates.photoURL = this.profile.photoURL;
-            if(this.profile.displayName) updates.displayName = this.profile.displayName;
+        async saveProfile() {
+            const user = window.auth.currentUser;
+            if (!user) return;
 
-            if(Object.keys(updates).length > 0) {
-    await user.updateProfile(updates);
-}
-alert("Perfil salvo com sucesso!");
+            try {
+                await window.db.collection('users').doc(user.uid).set(this.profile, { merge: true });
+                // Update Auth profile
+                const updates = {};
+                if (this.profile.photoURL) updates.photoURL = this.profile.photoURL;
+                if (this.profile.displayName) updates.displayName = this.profile.displayName;
+
+                if (Object.keys(updates).length > 0) {
+                    await user.updateProfile(updates);
+                }
+                alert("Perfil salvo com sucesso!");
             } catch (e) {
-    alert("Erro ao salvar: " + e.message);
-}
+                alert("Erro ao salvar: " + e.message);
+            }
         },
         async addItem() {
-    try {
-        await window.db.collection(this.currentTab).add(this.newItem);
-        this.showAddModal = false;
-        this.newItem = { title: '', description: '', image: '', category: 'Notícia' };
-        this.loadItems();
-        alert("Adicionado com sucesso!");
-    } catch (e) {
-        alert("Erro ao adicionar: " + e.message);
-    }
-},
+            try {
+                await window.db.collection(this.currentTab).add(this.newItem);
+                this.showAddModal = false;
+                this.newItem = { title: '', description: '', image: '', category: 'Notícia' };
+                this.loadItems();
+                alert("Adicionado com sucesso!");
+            } catch (e) {
+                alert("Erro ao adicionar: " + e.message);
+            }
+        },
         async deleteItem(id) {
-    if (!confirm("Tem certeza?")) return;
-    try {
-        await window.db.collection(this.currentTab).doc(id).delete();
-        this.loadItems();
-    } catch (e) {
-        alert("Erro ao excluir: " + e.message);
-    }
-},
-logout() {
-    window.auth.signOut().then(() => {
-        this.$router.push('/login');
-    });
-}
+            if (!confirm("Tem certeza?")) return;
+            try {
+                await window.db.collection(this.currentTab).doc(id).delete();
+                this.loadItems();
+            } catch (e) {
+                alert("Erro ao excluir: " + e.message);
+            }
+        },
+        logout() {
+            window.auth.signOut().then(() => {
+                this.$router.push('/login');
+            });
+        }
     }
 }
