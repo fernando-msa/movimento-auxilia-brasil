@@ -22,6 +22,24 @@ const HomeView = {
             </div>
 
             <div class="container">
+                <!-- Prayer Request Section (New) -->
+                <div style="background: white; padding: 20px; margin-bottom: 40px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); border-left: 5px solid var(--primary-color);">
+                    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;">
+                        <div>
+                            <h3 style="color: var(--secondary-color); margin-bottom: 5px;">{{ $t('home.latestPrayers') }}</h3>
+                            <div v-if="prayers.length === 0" style="color: #777; font-style: italic;">Nenhum pedido recente. Seja o primeiro!</div>
+                            <div v-else class="prayer-ticker" style="max-height: 100px; overflow-y: auto; font-size: 0.95rem;">
+                                <div v-for="prayer in prayers" :key="prayer.id" style="margin-bottom: 8px; border-bottom: 1px dotted #eee; padding-bottom: 4px;">
+                                    <strong>{{ prayer.name }} ({{ prayer.city }}):</strong> {{ prayer.intention }}
+                                </div>
+                            </div>
+                        </div>
+                        <button @click="showPrayerModal = true" style="background: var(--primary-color); color: white; border: none; padding: 10px 20px; border-radius: 4px; font-weight: bold; cursor: pointer; white-space: nowrap;">
+                            {{ $t('home.prayerBtn') }} 🙏
+                        </button>
+                    </div>
+                </div>
+
                 <h2 class="section-title">{{ $t('home.upcoming') }}</h2>
                 
                 <div v-if="loading" class="loading">{{ $t('home.loading') }}</div>
@@ -40,33 +58,24 @@ const HomeView = {
                     </article>
                 </div>
 
-                <!-- Instagram Section (Replaced YouTube) -->
+                <!-- Instagram Section -->
                 <div style="margin-top: 60px; text-align: center;">
                     <h2 class="section-title">Siga-nos no Instagram</h2>
                     <p style="margin-bottom: 20px; font-size: 1.2rem;">@somosauxilia</p>
-                    
-                    <!-- 
-                        ÁREA DO WIDGET DO INSTAGRAM
-                        Para tornar o feed dinâmico (ao vivo), gere um código grátis em sites como:
-                        - SnapWidget: https://snapwidget.com
-                        - Elfsight: https://elfsight.com
-                        - Fouita: https://fouita.com
-                        E cole o código (iframe ou script) AQUI, substituindo a div 'simulated-feed' abaixo.
-                    -->
-
+                   
                     <!-- Simulated Feed Grid (Fallback) -->
                     <div id="instagram-feed-container" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; margin-bottom: 30px; opacity: 0.8;">
-                        <a href="https://www.instagram.com/somosauxilia" target="_blank" style="display:block; overflow:hidden; border-radius:8px;">
-                            <img src="https://placehold.co/300x300/C59D5F/FFF?text=Retiro+2026" style="width:100%; aspect-ratio:1; object-fit:cover; transition: transform 0.3s;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
+                       <a href="https://www.instagram.com/somosauxilia" target="_blank" style="display:block; overflow:hidden; border-radius:8px;">
+                            <img src="https://placehold.co/300x300/C59D5F/FFF?text=Retiro" style="width:100%; aspect-ratio:1; object-fit:cover;">
                         </a>
                         <a href="https://www.instagram.com/somosauxilia" target="_blank" style="display:block; overflow:hidden; border-radius:8px;">
-                            <img src="https://placehold.co/300x300/5D4037/FFF?text=Santa+Missa" style="width:100%; aspect-ratio:1; object-fit:cover; transition: transform 0.3s;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
+                            <img src="https://placehold.co/300x300/5D4037/FFF?text=Missa" style="width:100%; aspect-ratio:1; object-fit:cover;">
+                        </a>
+                         <a href="https://www.instagram.com/somosauxilia" target="_blank" style="display:block; overflow:hidden; border-radius:8px;">
+                            <img src="https://placehold.co/300x300/333/FFF?text=Social" style="width:100%; aspect-ratio:1; object-fit:cover;">
                         </a>
                         <a href="https://www.instagram.com/somosauxilia" target="_blank" style="display:block; overflow:hidden; border-radius:8px;">
-                            <img src="https://placehold.co/300x300/333/FFF?text=Ação+Social" style="width:100%; aspect-ratio:1; object-fit:cover; transition: transform 0.3s;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
-                        </a>
-                        <a href="https://www.instagram.com/somosauxilia" target="_blank" style="display:block; overflow:hidden; border-radius:8px;">
-                            <img src="https://placehold.co/300x300/999/FFF?text=Jovens" style="width:100%; aspect-ratio:1; object-fit:cover; transition: transform 0.3s;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'">
+                            <img src="https://placehold.co/300x300/999/FFF?text=Jovens" style="width:100%; aspect-ratio:1; object-fit:cover;">
                         </a>
                     </div>
 
@@ -74,6 +83,22 @@ const HomeView = {
                        style="background: #E1306C; color: white; padding: 15px 30px; border-radius: 50px; text-decoration: none; font-weight: bold; font-size: 1.1rem; display: inline-flex; align-items: center; gap: 10px;">
                         <span>📸</span> Ver Instagram Oficial
                     </a>
+                </div>
+            </div>
+
+            <!-- Prayer Request Modal -->
+            <div v-if="showPrayerModal" style="position: fixed; top:0; left:0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); display: flex; justify-content: center; align-items: center; z-index: 5000;">
+                <div style="background: white; padding: 30px; border-radius: 8px; width: 90%; max-width: 400px; position: relative;">
+                    <button @click="showPrayerModal = false" style="position: absolute; top: 10px; right: 10px; border: none; background: none; font-size: 1.5rem; cursor: pointer;">&times;</button>
+                    <h3 style="color: var(--secondary-color); margin-bottom: 20px;">{{ $t('home.prayerForm.title') }}</h3>
+                    <form @submit.prevent="submitPrayer">
+                        <input v-model="newPrayer.name" :placeholder="$t('home.prayerForm.name')" required style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ddd; border-radius: 4px;">
+                        <input v-model="newPrayer.city" :placeholder="$t('home.prayerForm.city')" required style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ddd; border-radius: 4px;">
+                        <textarea v-model="newPrayer.intention" :placeholder="$t('home.prayerForm.intention')" required style="width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ddd; border-radius: 4px; height: 80px;"></textarea>
+                        <button type="submit" style="width: 100%; background: var(--primary-color); color: white; border: none; padding: 12px; border-radius: 4px; font-weight: bold; cursor: pointer;">
+                            {{ $t('home.prayerForm.send') }}
+                        </button>
+                    </form>
                 </div>
             </div>
 
@@ -101,8 +126,8 @@ const HomeView = {
             </div>
         </div>
     `,
-    data() { return { activities: [], loading: true, selectedActivity: null } },
-    mounted() { this.loadData(); },
+    data() { return { activities: [], loading: true, selectedActivity: null, showPrayerModal: false, newPrayer: { name: '', city: '', intention: '' }, prayers: [] } },
+    mounted() { this.loadData(); this.loadPrayers(); },
     methods: {
         async loadData() {
             try {
@@ -119,6 +144,27 @@ const HomeView = {
                     { id: 4, title: 'O que é o Carisma Salesiano?', description: 'Entenda os pilares da educação de Dom Bosco: Razão, Religião e Amorevolezza. Um caminho de santidade para a juventude que transforma vidas através da alegria.', image: 'https://placehold.co/600x400/999/FFF?text=Formação', category: 'Formação' }
                 ];
             } finally { this.loading = false; }
+        },
+        async loadPrayers() {
+            try {
+                // Get latest 5 prayers
+                const snap = await window.db.collection('prayer_requests').orderBy('timestamp', 'desc').limit(5).get();
+                this.prayers = snap.docs.map(doc => doc.data());
+            } catch (e) { console.log('No prayers yet or offline'); }
+        },
+        async submitPrayer() {
+            try {
+                const prayer = { ...this.newPrayer, timestamp: new Date() };
+                await window.db.collection('prayer_requests').add(prayer);
+                this.prayers.unshift(prayer); // Optimistic update
+                if (this.prayers.length > 5) this.prayers.pop();
+
+                alert(this.$t('home.prayerForm.success'));
+                this.showPrayerModal = false;
+                this.newPrayer = { name: '', city: '', intention: '' };
+            } catch (e) {
+                alert('Erro ao enviar: ' + e.message);
+            }
         },
         openActivity(item) {
             this.selectedActivity = item;

@@ -15,7 +15,17 @@ export default {
         upcoming: 'Próximas Actividades',
         youtubeTitle: 'Sigue nuestro Canal',
         readMore: 'Leer más',
-        loading: 'Cargando noticias...'
+        loading: 'Cargando noticias...',
+        prayerBtn: 'Pedido de Oración',
+        latestPrayers: 'Últimos Pedidos de Oración',
+        prayerForm: {
+            title: 'Enviar Pedido de Oración',
+            name: 'Tu Nombre',
+            city: 'Tu Ciudad',
+            intention: 'Tu Intención',
+            send: 'Enviar Pedido',
+            success: '¡Pedido enviado con éxito! Rezaremos por ti.'
+        }
     },
     missions: {
         title: 'Nuestras Misiones',

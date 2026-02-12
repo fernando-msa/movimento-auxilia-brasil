@@ -35,7 +35,6 @@
                 <a href="#" @click.prevent="changeLang('pt-BR')">PT</a>
                 <a href="#" @click.prevent="changeLang('es')">ES</a>
                 <a href="#" @click.prevent="changeLang('en')">EN</a>
-                <a href="#">Pedido de Oração</a>
                 <a href="#/together"
                     style="background: var(--primary-color); padding: 5px 10px; border-radius: 4px; color: white; font-weight: bold;">Together</a>
                 <a v-if="!user" href="#/login">Login</a>
@@ -61,6 +60,22 @@
                         }}</router-link>
                     <router-link to="/pastorais" class="nav-link" @click="closeMenu">{{ t('nav.pastorals')
                         }}</router-link>
+
+                    <!-- Social Icons -->
+                    <div class="social-icons" style="display: flex; gap: 10px; margin-left: 20px;">
+                        <a href="https://instagram.com/somosauxilia" target="_blank" title="Instagram">
+                            <img src="https://cdn-icons-png.flaticon.com/512/1384/1384063.png"
+                                style="width: 24px; filter: brightness(0) invert(1);">
+                        </a>
+                        <a href="https://youtube.com/@somosauxilia" target="_blank" title="YouTube">
+                            <img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png"
+                                style="width: 24px; filter: brightness(0) invert(1);">
+                        </a>
+                        <a href="https://twitter.com/somosauxilia" target="_blank" title="X (Twitter)">
+                            <img src="https://cdn-icons-png.flaticon.com/512/5969/5969020.png"
+                                style="width: 24px; filter: brightness(0) invert(1);">
+                        </a>
+                    </div>
                 </nav>
             </div>
         </header>
