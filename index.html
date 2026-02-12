@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movimento Auxilia Brasil</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css?v=6">
+    <!-- Leaflet & Chart.js -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+
+    <!-- Libraries (Compat) -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://unpkg.com/vue-router@4/dist/vue-router.global.js"></script>
+    <script src="https://unpkg.com/vue-i18n@9/dist/vue-i18n.global.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Firebase Compat -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-analytics-compat.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <!-- Top Utility Bar -->
+        <div class="top-bar">
+            <div class="container">
+                <a href="#" @click.prevent="changeLang('pt-BR')">PT</a>
+                <a href="#" @click.prevent="changeLang('es')">ES</a>
+                <a href="#" @click.prevent="changeLang('en')">EN</a>
+                <a href="#">Pedido de Oração</a>
+                <a href="#">Doe Agora</a>
+            </div>
+        </div>
+
+        <!-- Main Header -->
+        <header>
+            <div class="header-inner">
+                <div class="logo">
+                    Movimento <span>Auxilia</span> Brasil
+                </div>
+
+                <button class="mobile-toggle" @click="toggleMenu">☰</button>
+
+                <nav class="nav-menu" :class="{ open: isMenuOpen }">
+                    <router-link to="/" class="nav-link" @click="closeMenu">{{ t('nav.home') }}</router-link>
+                    <router-link to="/missoes" class="nav-link" @click="closeMenu">{{ t('nav.missions') }}</router-link>
+                    <router-link to="/espiritualidade" class="nav-link" @click="closeMenu">{{ t('nav.spirituality')
+                        }}</router-link>
+                    <router-link to="/transparencia" class="nav-link" @click="closeMenu">{{ t('nav.transparency')
+                        }}</router-link>
+                    <router-link to="/pastorais" class="nav-link" @click="closeMenu">{{ t('nav.pastorals')
+                        }}</router-link>
+                </nav>
+            </div>
+        </header>
+
+        <main>
+            <router-view></router-view>
+        </main>
+
+        <footer>
+            <div class="container">
+                <p>&copy; 2026 Movimento Auxilia Brasil - Todos os direitos reservados.</p>
+                <p>Evangelizando com alegria e carisma.</p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- App Scripts -->
+    <script src="firebase-config.js"></script>
+    <script src="seed.js"></script>
+    <script src="app.js"></script>
+</body>
+
+</html>
