@@ -51,10 +51,16 @@ export default {
                         <label style="display: block; margin-bottom: 5px; font-weight: bold;">Nome de Exibição</label>
                         <input v-model="profile.displayName" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;" placeholder="Seu Nome">
                     </div>
+                    
                     <div style="margin-bottom: 15px;">
-                        <label style="display: block; margin-bottom: 5px; font-weight: bold;">Foto URL</label>
-                        <input v-model="profile.photoURL" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;" placeholder="https://...">
+                        <label style="display: block; margin-bottom: 5px; font-weight: bold;">Foto de Perfil</label>
+                        <div style="display: flex; gap: 10px; align-items: center;">
+                            <input type="file" @change="uploadPhoto" accept="image/*" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;">
+                            <span v-if="uploading" style="color: var(--primary-color);">Enviando...</span>
+                        </div>
+                        <p style="font-size: 0.8rem; color: #666; margin-top: 5px;">Selecione da Galeria, Google Drive ou tire uma foto.</p>
                     </div>
+
                     <div style="margin-bottom: 15px;">
                         <label style="display: block; margin-bottom: 5px; font-weight: bold;">{{ $t('admin.profile.role') }}</label>
                         <input v-model="profile.role" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;" placeholder="Ex: Coordenador">
@@ -63,8 +69,8 @@ export default {
                         <label style="display: block; margin-bottom: 5px; font-weight: bold;">{{ $t('admin.profile.time') }}</label>
                         <input v-model="profile.joinDate" type="date" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;">
                     </div>
-                    <button type="submit" style="width: 100%; background: var(--primary-color); color: white; border: none; padding: 12px; border-radius: 4px; font-weight: bold; cursor: pointer;">
-                        {{ $t('admin.profile.save') }}
+                    <button type="submit" :disabled="uploading" style="width: 100%; background: var(--primary-color); color: white; border: none; padding: 12px; border-radius: 4px; font-weight: bold; cursor: pointer; opacity: uploading ? 0.7 : 1;">
+                        {{ uploading ? 'Aguarde...' : $t('admin.profile.save') }}
                     </button>
                 </form>
             </div>
@@ -96,6 +102,7 @@ export default {
             currentTab: 'activities',
             items: [],
             loading: true,
+            uploading: false,
             showAddModal: false,
             newItem: { title: '', description: '', image: '', category: 'Notícia' },
             profile: { photoURL: '', role: '', joinDate: '' }
@@ -141,6 +148,32 @@ export default {
                 }
             } catch (e) {
                 console.error("Erro ao carregar perfil", e);
+            }
+        },
+        async uploadPhoto(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            this.uploading = true;
+            const user = window.auth.currentUser;
+
+            try {
+                // Create Reference
+                const storageRef = window.storage.ref();
+                const fileRef = storageRef.child(`users/${user.uid}/profile_${Date.now()}.jpg`);
+
+                // Upload
+                await fileRef.put(file);
+
+                // Get URL
+                const url = await fileRef.getDownloadURL();
+                this.profile.photoURL = url;
+                alert("Foto enviada com sucesso! Clique em Salvar para confirmar.");
+            } catch (e) {
+                alert("Erro no upload: " + e.message);
+                console.error(e);
+            } finally {
+                this.uploading = false;
             }
         },
         async saveProfile() {

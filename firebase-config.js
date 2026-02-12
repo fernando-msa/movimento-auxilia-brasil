@@ -16,10 +16,12 @@ firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 const analytics = firebase.analytics();
 const auth = firebase.auth();
+const storage = firebase.storage();
 
 // Make available globally
 window.db = db;
 window.auth = auth;
+window.storage = storage;
 window.collection = (db, col) => db.collection(col);
 window.getDocs = (query) => query.get();
 // Note: Compat syntax is different: db.collection("users").get(). SDK 8 style.
