@@ -33,27 +33,58 @@ const HomeView = {
                             <span class="card-category">{{ activity.category || 'Evento' }}</span>
                             <h3 class="card-title">{{ activity.title }}</h3>
                             <p class="card-text">{{ activity.description }}</p>
-                            <a href="#" class="btn-read">{{ $t('home.readMore') }} &rarr;</a>
+                            <button @click="openActivity(activity)" class="btn-read" style="background:none; border:none; color:var(--primary-color); cursor:pointer; font-weight:bold; padding:0;">
+                                {{ $t('home.readMore') }} &rarr;
+                            </button>
                         </div>
                     </article>
                 </div>
 
-                <!-- Youtube Section -->
-                <div style="margin-top: 60px;">
-                    <h2 class="section-title">{{ $t('home.youtubeTitle') }}</h2>
-                    <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; background: #000;">
-                        <iframe style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" 
-                            src="https://www.youtube.com/embed/videoseries?list=PLy2778c_K61tq5HbeiwS_zM5N8M0vKwb1" 
-                            title="YouTube video player" frameborder="0" 
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                            allowfullscreen>
-                        </iframe>
+                <!-- Instagram Section (Replaced YouTube) -->
+                <div style="margin-top: 60px; text-align: center;">
+                    <h2 class="section-title">Siga-nos no Instagram</h2>
+                    <p style="margin-bottom: 20px; font-size: 1.2rem;">@somosauxilia</p>
+                    
+                    <!-- Simulated Feed Grid -->
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; margin-bottom: 30px; opacity: 0.8;">
+                        <img src="https://placehold.co/300x300/C59D5F/FFF?text=Post+1" style="width:100%; aspect-ratio:1; object-fit:cover; border-radius:8px;">
+                        <img src="https://placehold.co/300x300/5D4037/FFF?text=Post+2" style="width:100%; aspect-ratio:1; object-fit:cover; border-radius:8px;">
+                        <img src="https://placehold.co/300x300/333/FFF?text=Post+3" style="width:100%; aspect-ratio:1; object-fit:cover; border-radius:8px;">
+                        <img src="https://placehold.co/300x300/999/FFF?text=Post+4" style="width:100%; aspect-ratio:1; object-fit:cover; border-radius:8px;">
+                    </div>
+
+                    <a href="https://www.instagram.com/somosauxilia" target="_blank" 
+                       style="background: #E1306C; color: white; padding: 15px 30px; border-radius: 50px; text-decoration: none; font-weight: bold; font-size: 1.1rem; display: inline-flex; align-items: center; gap: 10px;">
+                        <span>📸</span> Ver Instagram Oficial
+                    </a>
+                </div>
+            </div>
+
+            <!-- News Detail Modal -->
+            <div v-if="selectedActivity" style="position: fixed; top:0; left:0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); display: flex; justify-content: center; align-items: center; z-index: 4000; padding: 20px;">
+                <div style="background: white; border-radius: 8px; max-width: 600px; width: 100%; max-height: 90vh; overflow-y: auto; position: relative;">
+                    <button @click="selectedActivity = null" style="position: absolute; top: 10px; right: 10px; background: rgba(0,0,0,0.1); border: none; font-size: 1.5rem; cursor: pointer; width: 40px; height: 40px; border-radius: 50%;">&times;</button>
+                    
+                    <img :src="selectedActivity.image" style="width: 100%; height: 300px; object-fit: cover;">
+                    
+                    <div style="padding: 30px;">
+                        <span style="background: var(--primary-color); color: white; padding: 4px 10px; border-radius: 4px; font-size: 0.8rem; text-transform: uppercase;">
+                            {{ selectedActivity.category || 'Notícia' }}
+                        </span>
+                        <h2 style="margin: 15px 0; color: var(--secondary-color);">{{ selectedActivity.title }}</h2>
+                        <p style="line-height: 1.6; color: #555; white-space: pre-wrap;">{{ selectedActivity.description }}</p>
+                        
+                        <hr style="margin: 30px 0; border: 0; border-top: 1px solid #eee;">
+                        
+                        <div style="text-align: center;">
+                            <button @click="selectedActivity = null" style="background: var(--light-bg); border: 1px solid #ddd; padding: 10px 25px; border-radius: 4px; cursor: pointer;">Fechar</button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     `,
-    data() { return { activities: [], loading: true } },
+    data() { return { activities: [], loading: true, selectedActivity: null } },
     mounted() { this.loadData(); },
     methods: {
         async loadData() {
@@ -65,12 +96,15 @@ const HomeView = {
             } catch (e) {
                 // Mock Data Portal Style
                 this.activities = [
-                    { id: 1, title: 'Acampamento Jovem reúne centenas em Aracaju', description: 'Foi um final de semana de muita oração, lazer e encontro com Deus. O evento marcou o início das atividades do ano.', image: 'https://placehold.co/600x400/C59D5F/FFF?text=Acampamento', category: 'Notícia' },
-                    { id: 2, title: 'Inscrições abertas para o Retiro de Quaresma', description: 'Venha se preparar para a Páscoa conosco. O retiro acontecerá na casa de formação e contará com pregadores convidados.', image: 'https://placehold.co/600x400/5D4037/FFF?text=Retiro', category: 'Evento' },
-                    { id: 3, title: 'Ação Social: Sopa Solidária distribui 500 refeições', description: 'Nossa equipe de voluntários esteve presente no centro da cidade levando alimento e esperança para os irmãos em situação de rua.', image: 'https://placehold.co/600x400/333/FFF?text=Social', category: 'Ação Social' },
-                    { id: 4, title: 'O que é o Carisma Salesiano?', description: 'Entenda os pilares da educação de Dom Bosco: Razão, Religião e Amorevolezza. Um caminho de santidade para a juventude.', image: 'https://placehold.co/600x400/999/FFF?text=Formação', category: 'Formação' }
+                    { id: 1, title: 'Acampamento Jovem reúne centenas em Aracaju', description: 'Foi um final de semana de muita oração, lazer e encontro com Deus. O evento marcou o início das atividades do ano. Contou com a presença de diversos movimentos e pastorais.', image: 'https://placehold.co/600x400/C59D5F/FFF?text=Acampamento', category: 'Notícia' },
+                    { id: 2, title: 'Inscrições abertas para o Retiro de Quaresma', description: 'Venha se preparar para a Páscoa conosco. O retiro acontecerá na casa de formação e contará com pregadores convidados. As vagas são limitadas.', image: 'https://placehold.co/600x400/5D4037/FFF?text=Retiro', category: 'Evento' },
+                    { id: 3, title: 'Ação Social: Sopa Solidária distribui 500 refeições', description: 'Nossa equipe de voluntários esteve presente no centro da cidade levando alimento e esperança para os irmãos em situação de rua. Precisamos de doações de alimentos não perecíveis.', image: 'https://placehold.co/600x400/333/FFF?text=Social', category: 'Ação Social' },
+                    { id: 4, title: 'O que é o Carisma Salesiano?', description: 'Entenda os pilares da educação de Dom Bosco: Razão, Religião e Amorevolezza. Um caminho de santidade para a juventude que transforma vidas através da alegria.', image: 'https://placehold.co/600x400/999/FFF?text=Formação', category: 'Formação' }
                 ];
             } finally { this.loading = false; }
+        },
+        openActivity(item) {
+            this.selectedActivity = item;
         }
     }
 };
