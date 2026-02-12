@@ -23,6 +23,7 @@
     <!-- Firebase Compat -->
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-analytics-compat.js"></script>
 </head>
 
@@ -35,7 +36,10 @@
                 <a href="#" @click.prevent="changeLang('es')">ES</a>
                 <a href="#" @click.prevent="changeLang('en')">EN</a>
                 <a href="#">Pedido de Oração</a>
-                <a href="#">Doe Agora</a>
+                <a href="#/together"
+                    style="background: var(--primary-color); padding: 5px 10px; border-radius: 4px; color: white; font-weight: bold;">Together</a>
+                <a v-if="!user" href="#/login">Login</a>
+                <a v-else href="#/admin">Admin</a>
             </div>
         </div>
 
@@ -76,7 +80,7 @@
     <!-- App Scripts -->
     <script src="firebase-config.js"></script>
     <script src="seed.js"></script>
-    <script src="app.js"></script>
+    <script type="module" src="app.js"></script>
 </body>
 
 </html>

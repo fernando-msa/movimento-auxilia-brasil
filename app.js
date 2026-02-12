@@ -3,17 +3,9 @@ const { createApp, ref } = Vue;
 const { createRouter, createWebHashHistory } = VueRouter;
 const { createI18n } = VueI18n;
 
-// --- Locales ---
-const ptBR = {
-    nav: { home: 'Início', missions: 'Missões', spirituality: 'Espiritualidade', transparency: 'Transparência', pastorals: 'Pastorais' },
-    home: { title: 'Notícias & Eventos', upcoming: 'Destaques' },
-    missions: { title: 'Nossas Missões pelo Brasil' },
-    spirituality: { title: 'Espiritualidade e Formação', salesian: 'Carisma Salesiano', marian: 'Devoção Mariana' },
-    transparency: { title: 'Transparência Financeira', chartTitle: 'Arrecadação Mensal' },
-    pastorals: { title: 'Nossas Frentes de Evangelização' }
-};
-const es = ptBR;
-const en = ptBR;
+import ptBR from './locales/pt-BR.js';
+import es from './locales/es.js';
+import en from './locales/en.js';
 
 // --- Components ---
 
@@ -196,6 +188,8 @@ const i18n = createI18n({
     fallbackLocale: 'en',
     messages: { 'pt-BR': ptBR, 'es': es, 'en': en }
 });
+
+import TogetherView from './components/TogetherView.js';
 
 const router = createRouter({
     history: createWebHashHistory(),
