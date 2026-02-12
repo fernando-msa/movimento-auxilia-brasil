@@ -111,31 +111,38 @@ export default {
             this.showModal = false;
         },
         renderChart() {
-            const ctx = document.getElementById('goalChart').getContext('2d');
-            // Parse currency to number for chart
-            const current = 22000;
-            const goal = 35000;
-            const missing = goal - current;
+            setTimeout(() => {
+                const canvas = document.getElementById('goalChart');
+                if (!canvas) return;
 
-            new Chart(ctx, {
-                type: 'doughnut',
-                data: {
-                    labels: ['Arrecadado', 'Falta para a Meta'],
-                    datasets: [{
-                        data: [current, missing],
-                        backgroundColor: ['#003366', '#e0e0e0'], // Primary brand color vs Gray
-                        hoverOffset: 4
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: { position: 'bottom' },
-                        title: { display: true, text: 'Progresso da Meta Mensal' }
+                const ctx = canvas.getContext('2d');
+                // Parse currency to number for chart
+                const current = 22000;
+                const goal = 35000;
+                const missing = goal - current;
+
+                if (window.myGoalChart) window.myGoalChart.destroy();
+
+                window.myGoalChart = new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Arrecadado', 'Falta para a Meta'],
+                        datasets: [{
+                            data: [current, missing],
+                            backgroundColor: ['#003366', '#e0e0e0'], // Primary brand color vs Gray
+                            hoverOffset: 4
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: { position: 'bottom' },
+                            title: { display: true, text: 'Progresso da Meta Mensal' }
+                        }
                     }
-                }
-            });
+                });
+            }, 500); // Wait for DOM
         }
     }
 }

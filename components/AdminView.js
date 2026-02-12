@@ -48,6 +48,10 @@ export default {
                 
                 <form @submit.prevent="saveProfile">
                     <div style="margin-bottom: 15px;">
+                        <label style="display: block; margin-bottom: 5px; font-weight: bold;">Nome de Exibição</label>
+                        <input v-model="profile.displayName" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;" placeholder="Seu Nome">
+                    </div>
+                    <div style="margin-bottom: 15px;">
                         <label style="display: block; margin-bottom: 5px; font-weight: bold;">Foto URL</label>
                         <input v-model="profile.photoURL" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;" placeholder="https://...">
                     </div>
@@ -128,51 +132,56 @@ export default {
                 if (doc.exists) {
                     this.profile = doc.data();
                 } else {
-                    this.profile = { photoURL: user.photoURL || '', role: '', joinDate: '' };
+                    this.profile = {
+                        displayName: user.displayName || '',
+                        photoURL: user.photoURL || '',
+                        role: '',
+                        joinDate: ''
+                    };
                 }
             } catch (e) {
                 console.error("Erro ao carregar perfil", e);
             }
         },
-        async saveProfile() {
-            const user = window.auth.currentUser;
-            if (!user) return;
+        try {
+            await window.db.collection('users').doc(user.uid).set(this.profile, { merge: true });
+            // Update Auth profile
+            const updates = {};
+            if(this.profile.photoURL) updates.photoURL = this.profile.photoURL;
+            if(this.profile.displayName) updates.displayName = this.profile.displayName;
 
-            try {
-                await window.db.collection('users').doc(user.uid).set(this.profile, { merge: true });
-                // Also update Auth profile if possible
-                if (this.profile.photoURL) {
-                    await user.updateProfile({ photoURL: this.profile.photoURL });
-                }
-                alert("Perfil salvo com sucesso!");
+            if(Object.keys(updates).length > 0) {
+    await user.updateProfile(updates);
+}
+alert("Perfil salvo com sucesso!");
             } catch (e) {
-                alert("Erro ao salvar: " + e.message);
-            }
+    alert("Erro ao salvar: " + e.message);
+}
         },
         async addItem() {
-            try {
-                await window.db.collection(this.currentTab).add(this.newItem);
-                this.showAddModal = false;
-                this.newItem = { title: '', description: '', image: '', category: 'Notícia' };
-                this.loadItems();
-                alert("Adicionado com sucesso!");
-            } catch (e) {
-                alert("Erro ao adicionar: " + e.message);
-            }
-        },
+    try {
+        await window.db.collection(this.currentTab).add(this.newItem);
+        this.showAddModal = false;
+        this.newItem = { title: '', description: '', image: '', category: 'Notícia' };
+        this.loadItems();
+        alert("Adicionado com sucesso!");
+    } catch (e) {
+        alert("Erro ao adicionar: " + e.message);
+    }
+},
         async deleteItem(id) {
-            if (!confirm("Tem certeza?")) return;
-            try {
-                await window.db.collection(this.currentTab).doc(id).delete();
-                this.loadItems();
-            } catch (e) {
-                alert("Erro ao excluir: " + e.message);
-            }
-        },
-        logout() {
-            window.auth.signOut().then(() => {
-                this.$router.push('/login');
-            });
-        }
+    if (!confirm("Tem certeza?")) return;
+    try {
+        await window.db.collection(this.currentTab).doc(id).delete();
+        this.loadItems();
+    } catch (e) {
+        alert("Erro ao excluir: " + e.message);
+    }
+},
+logout() {
+    window.auth.signOut().then(() => {
+        this.$router.push('/login');
+    });
+}
     }
 }

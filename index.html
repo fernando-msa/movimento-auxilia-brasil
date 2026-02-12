@@ -49,6 +49,20 @@
                     Movimento <span>Auxilia</span> Brasil
                 </div>
 
+                <!-- Radio Player (Header) -->
+                <div class="radio-player-header"
+                    style="display: flex; align-items: center; gap: 10px; margin: 0 20px; background: rgba(0,0,0,0.2); padding: 5px 15px; border-radius: 50px;">
+                    <span style="font-size: 1.2rem;">📻</span>
+                    <div style="line-height: 1;">
+                        <span style="display: block; font-size: 0.7rem; color: #ccc;">AO VIVO</span>
+                        <strong style="font-size: 0.9rem; color: white;">Rádio Cultura 107.5</strong>
+                    </div>
+                    <audio id="header-radio" controls style="height: 30px; width: 150px; margin-left: 10px;">
+                        <!-- Using direct stream - Note: Mixed Content (HTTP) might be blocked on HTTPS deploy. User must allow or use proxy. -->
+                        <source src="http://streaming.fabricahost.com.br:8000/culturafmaracaju" type="audio/mpeg">
+                    </audio>
+                </div>
+
                 <button class="mobile-toggle" @click="toggleMenu">☰</button>
 
                 <nav class="nav-menu" :class="{ open: isMenuOpen }">
@@ -60,22 +74,6 @@
                         }}</router-link>
                     <router-link to="/pastorais" class="nav-link" @click="closeMenu">{{ t('nav.pastorals')
                         }}</router-link>
-
-                    <!-- Social Icons -->
-                    <div class="social-icons" style="display: flex; gap: 10px; margin-left: 20px;">
-                        <a href="https://instagram.com/somosauxilia" target="_blank" title="Instagram">
-                            <img src="https://cdn-icons-png.flaticon.com/512/1384/1384063.png"
-                                style="width: 24px; filter: brightness(0) invert(1);">
-                        </a>
-                        <a href="https://youtube.com/@somosauxilia" target="_blank" title="YouTube">
-                            <img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png"
-                                style="width: 24px; filter: brightness(0) invert(1);">
-                        </a>
-                        <a href="https://twitter.com/somosauxilia" target="_blank" title="X (Twitter)">
-                            <img src="https://cdn-icons-png.flaticon.com/512/5969/5969020.png"
-                                style="width: 24px; filter: brightness(0) invert(1);">
-                        </a>
-                    </div>
                 </nav>
             </div>
         </header>
@@ -86,6 +84,24 @@
 
         <footer>
             <div class="container">
+                <div class="footer-socials" style="margin-bottom: 20px;">
+                    <a href="https://twitter.com/somosauxilia" target="_blank" style="margin: 0 10px;">
+                        <img src="https://cdn-icons-png.flaticon.com/512/5969/5969020.png"
+                            style="width: 30px; filter: brightness(0) invert(1);">
+                    </a>
+                    <a href="https://www.instagram.com/somosauxilia/" target="_blank" style="margin: 0 10px;">
+                        <img src="https://cdn-icons-png.flaticon.com/512/1384/1384063.png"
+                            style="width: 30px; filter: brightness(0) invert(1);">
+                    </a>
+                    <a href="https://www.facebook.com/somosauxilia" target="_blank" style="margin: 0 10px;">
+                        <img src="https://cdn-icons-png.flaticon.com/512/1384/1384053.png"
+                            style="width: 30px; filter: brightness(0) invert(1);">
+                    </a>
+                    <a href="https://www.youtube.com/somosauxilia" target="_blank" style="margin: 0 10px;">
+                        <img src="https://cdn-icons-png.flaticon.com/512/1384/1384060.png"
+                            style="width: 30px; filter: brightness(0) invert(1);">
+                    </a>
+                </div>
                 <p>&copy; 2026 Movimento Auxilia Brasil - Todos os direitos reservados.</p>
                 <p>Evangelizando com alegria e carisma.</p>
             </div>
@@ -93,22 +109,7 @@
     </div>
 
     <!-- Radio Player (Fixed Bottom) -->
-    <div class="radio-player"
-        style="position: fixed; bottom: 0; left: 0; width: 100%; background: #222; color: white; padding: 10px; display: flex; align-items: center; justify-content: center; gap: 20px; z-index: 9999; box-shadow: 0 -2px 10px rgba(0,0,0,0.5);">
-        <div style="display: flex; align-items: center; gap: 10px;">
-            <img src="https://cdn-icons-png.flaticon.com/512/59/59284.png" style="width: 30px; filter: invert(1);">
-            <div>
-                <strong style="display: block; font-size: 0.9rem;">Rádio Cultura FM 107.5</strong>
-                <span style="font-size: 0.8rem; color: #aaa;">Aracaju / SE - Ao Vivo</span>
-            </div>
-        </div>
-        <audio controls style="height: 30px; max-width: 300px;">
-            <source src="https://ice.fabricahost.com.br/culturafmarcaju" type="audio/mpeg">
-            <!-- Fallback / Try different common stream structures if fails -->
-            <source src="http://streaming.fabricahost.com.br:8000/culturafmaracaju" type="audio/mpeg">
-            Seu navegador não suporta áudio.
-        </audio>
-    </div>
+    <!-- Removed from here to move to header -->
 
     <!-- App Scripts -->
     <script src="firebase-config.js"></script>
