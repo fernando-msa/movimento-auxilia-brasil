@@ -58,31 +58,37 @@ const HomeView = {
                     </article>
                 </div>
 
-                <!-- Instagram Section -->
+                <!-- Flickr Gallery Section -->
                 <div style="margin-top: 60px; text-align: center;">
-                    <h2 class="section-title">Siga-nos no Instagram</h2>
-                    <p style="margin-bottom: 20px; font-size: 1.2rem;">@somosauxilia</p>
+                    <h2 class="section-title">Nossa Galeria</h2>
+                    <p style="margin-bottom: 20px; font-size: 1.1rem; color: #666;">Confira os momentos especiais do movimento no Flickr.</p>
                    
-                    <!-- Simulated Feed Grid (Fallback) -->
-                    <div id="instagram-feed-container" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; margin-bottom: 30px; opacity: 0.8;">
-                       <a href="https://www.instagram.com/somosauxilia" target="_blank" style="display:block; overflow:hidden; border-radius:8px;">
-                            <img src="https://placehold.co/300x300/C59D5F/FFF?text=Retiro" style="width:100%; aspect-ratio:1; object-fit:cover;">
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-bottom: 30px;">
+                        <a href="https://www.flickr.com/photos/somosauxilia/" target="_blank" style="display:block; overflow:hidden; border-radius:8px; height: 200px; position: relative;">
+                            <img src="https://placehold.co/400x400/002F6C/FFF?text=Missão" style="width:100%; height:100%; object-fit:cover; transition: transform 0.3s;">
+                            <div style="position: absolute; bottom: 0; left: 0; right: 0; background: rgba(0,0,0,0.6); color: white; padding: 5px; font-size: 0.8rem;">Ver no Flickr</div>
                         </a>
-                        <a href="https://www.instagram.com/somosauxilia" target="_blank" style="display:block; overflow:hidden; border-radius:8px;">
-                            <img src="https://placehold.co/300x300/5D4037/FFF?text=Missa" style="width:100%; aspect-ratio:1; object-fit:cover;">
+                        <a href="https://www.flickr.com/photos/somosauxilia/" target="_blank" style="display:block; overflow:hidden; border-radius:8px; height: 200px; position: relative;">
+                            <img src="https://placehold.co/400x400/D4AF37/FFF?text=Retiro" style="width:100%; height:100%; object-fit:cover; transition: transform 0.3s;">
                         </a>
-                         <a href="https://www.instagram.com/somosauxilia" target="_blank" style="display:block; overflow:hidden; border-radius:8px;">
-                            <img src="https://placehold.co/300x300/333/FFF?text=Social" style="width:100%; aspect-ratio:1; object-fit:cover;">
+                        <a href="https://www.flickr.com/photos/somosauxilia/" target="_blank" style="display:block; overflow:hidden; border-radius:8px; height: 200px; position: relative;">
+                            <img src="https://placehold.co/400x400/8D0000/FFF?text=Jovens" style="width:100%; height:100%; object-fit:cover; transition: transform 0.3s;">
                         </a>
-                        <a href="https://www.instagram.com/somosauxilia" target="_blank" style="display:block; overflow:hidden; border-radius:8px;">
-                            <img src="https://placehold.co/300x300/999/FFF?text=Jovens" style="width:100%; aspect-ratio:1; object-fit:cover;">
+                        <a href="https://www.flickr.com/photos/somosauxilia/" target="_blank" style="display:block; overflow:hidden; border-radius:8px; height: 200px; position: relative;">
+                            <img src="https://placehold.co/400x400/333/FFF?text=Eventos" style="width:100%; height:100%; object-fit:cover; transition: transform 0.3s;">
                         </a>
                     </div>
 
-                    <a href="https://www.instagram.com/somosauxilia" target="_blank" 
-                       style="background: #E1306C; color: white; padding: 15px 30px; border-radius: 50px; text-decoration: none; font-weight: bold; font-size: 1.1rem; display: inline-flex; align-items: center; gap: 10px;">
-                        <span>📸</span> Ver Instagram Oficial
+                    <a href="https://www.flickr.com/photos/somosauxilia/" target="_blank" 
+                       style="background: var(--primary-color); color: white; padding: 12px 30px; border-radius: 50px; text-decoration: none; font-weight: bold; font-size: 1rem; display: inline-flex; align-items: center; gap: 10px;">
+                        <span>📸</span> Ver Galeria Completa no Flickr
                     </a>
+                </div>
+
+                <!-- Instagram Link (Simplified) -->
+                <div style="margin-top: 40px; text-align: center; border-top: 1px solid #eee; padding-top: 40px;">
+                    <p>Acompanhe também no Instagram</p>
+                    <a href="https://www.instagram.com/somosauxilia" target="_blank" style="color: var(--secondary-color); font-weight: bold; font-size: 1.2rem;">@somosauxilia</a>
                 </div>
             </div>
 
