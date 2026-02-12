@@ -6,6 +6,9 @@ const { createI18n } = VueI18n;
 import ptBR from './locales/pt-BR.js';
 import es from './locales/es.js';
 import en from './locales/en.js';
+import LoginView from './components/LoginView.js';
+import AdminView from './components/AdminView.js';
+import TogetherView from './components/TogetherView.js';
 
 // --- Components ---
 
@@ -189,8 +192,6 @@ const i18n = createI18n({
     messages: { 'pt-BR': ptBR, 'es': es, 'en': en }
 });
 
-import TogetherView from './components/TogetherView.js';
-
 const router = createRouter({
     history: createWebHashHistory(),
     routes: [
@@ -198,8 +199,33 @@ const router = createRouter({
         { path: '/missoes', component: MissionsView },
         { path: '/espiritualidade', component: SpiritualityView },
         { path: '/transparencia', component: TransparencyView },
-        { path: '/pastorais', component: PastoralsView },
+        { path: '/pastorals', component: PastoralsView },
+        { path: '/together', component: TogetherView },
+        { path: '/login', component: LoginView },
+        { path: '/admin', component: AdminView, meta: { requiresAuth: true } },
     ]
+});
+
+router.beforeEach((to, from, next) => {
+    const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
+
+    // Check auth properly
+    const checkAuth = () => {
+        if (requiresAuth && !window.auth.currentUser) {
+            next('/login');
+        } else {
+            next();
+        }
+    };
+
+    if (window.auth.currentUser !== undefined) {
+        checkAuth();
+    } else {
+        const unsubscribe = window.auth.onAuthStateChanged((user) => {
+            unsubscribe();
+            checkAuth();
+        });
+    }
 });
 
 const app = createApp({
@@ -209,7 +235,12 @@ const app = createApp({
         const toggleMenu = () => isMenuOpen.value = !isMenuOpen.value;
         const closeMenu = () => isMenuOpen.value = false;
         const changeLang = (l) => { locale.value = l; isMenuOpen.value = false; };
-        return { t, changeLang, isMenuOpen, toggleMenu, closeMenu };
+
+        // Expose user to template
+        const user = ref(null);
+        window.auth.onAuthStateChanged(u => user.value = u);
+
+        return { t, changeLang, isMenuOpen, toggleMenu, closeMenu, user };
     }
 });
 
