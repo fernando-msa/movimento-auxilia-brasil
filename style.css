@@ -1,23 +1,27 @@
 :root {
-    /* Paleta "Calma" (Tranquila de ver) */
-    --primary-color: #4a90e2;
-    /* Azul Suave */
-    --secondary-color: #f5a623;
-    /* Laranja Suave */
+    /* Paleta Harmoniosa (Inspirada no Carisma Salesiano/Auxilia) */
+    /* Deep Royal Blue: Confiança, Maria Auxiliadora */
+    --primary-color: #002F6C;
 
-    /* Cores de Apoio */
-    --bg-color: #f9f9f9;
-    /* Branco Off-White para o fundo */
-    --card-bg: #ffffff;
-    /* Branco Puro para cartões */
-    --text-color: #4a4a4a;
-    /* Cinza Escuro (menos cansativo que preto) */
-    --footer-bg: #2c3e50;
-    /* Azul Petróleo Escuro */
-    --header-bg: #ffffff;
-    --border-color: #e6e6e6;
-    --link-color: #4a90e2;
-    --white: #ffffff;
+    /* Warm Gold: Divindade, Luz, Nobreza (Substitui o amarelo vibrante por algo mais elegante) */
+    --secondary-color: #D4AF37;
+
+    /* Accent Red: Caridade, Sacrifício (Salesiano) */
+    --accent-color: #8D0000;
+
+    /* Bases Neutras */
+    --bg-color: #F8F9FA;
+    /* Branco Gelo */
+    --card-bg: #FFFFFF;
+    /* Branco Puro */
+    --text-color: #212529;
+    /* Preto Suave */
+    --footer-bg: #1A1A1A;
+    /* Quase Preto (Elegante) */
+    --header-bg: #FFFFFF;
+    --border-color: #DEE2E6;
+    --link-color: #002F6C;
+    --white: #FFFFFF;
 
     /* Fontes */
     --font-heading: 'Montserrat', sans-serif;

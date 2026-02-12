@@ -308,6 +308,9 @@ const i18n = createI18n({
     messages: { 'pt-BR': ptBR, 'es': es, 'en': en }
 });
 
+// Load Policy View dynamically
+import PolicyView from './components/PolicyView.js';
+
 const router = createRouter({
     history: createWebHashHistory(),
     routes: [
@@ -319,24 +322,20 @@ const router = createRouter({
         { path: '/together', component: TogetherView },
         { path: '/login', component: LoginView },
         { path: '/admin', component: AdminView, meta: { requiresAuth: true } },
+        { path: '/politica-privacidade', component: PolicyView, props: { type: 'privacy' } },
+        { path: '/termos-uso', component: PolicyView, props: { type: 'terms' } }
     ]
 });
 
 router.beforeEach((to, from, next) => {
     const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
-
-    // Check auth properly
     const checkAuth = () => {
-        if (requiresAuth && !window.auth.currentUser) {
-            next('/login');
-        } else {
-            next();
-        }
+        if (requiresAuth && !window.auth.currentUser) next('/login');
+        else next();
     };
 
-    if (window.auth.currentUser !== undefined) {
-        checkAuth();
-    } else {
+    if (window.auth.currentUser !== undefined) checkAuth();
+    else {
         const unsubscribe = window.auth.onAuthStateChanged((user) => {
             unsubscribe();
             checkAuth();
@@ -352,11 +351,27 @@ const app = createApp({
         const closeMenu = () => isMenuOpen.value = false;
         const changeLang = (l) => { locale.value = l; isMenuOpen.value = false; };
 
+        // Dark Mode Logic
+        const isDarkMode = ref(localStorage.getItem('darkMode') === 'true');
+        const toggleDarkMode = () => {
+            isDarkMode.value = !isDarkMode.value;
+            if (isDarkMode.value) {
+                document.body.classList.add('dark-mode');
+                localStorage.setItem('darkMode', 'true');
+            } else {
+                document.body.classList.remove('dark-mode');
+                localStorage.setItem('darkMode', 'false');
+            }
+        };
+
+        // Initialize Dark Mode
+        if (isDarkMode.value) document.body.classList.add('dark-mode');
+
         // Expose user to template
         const user = ref(null);
         window.auth.onAuthStateChanged(u => user.value = u);
 
-        return { t, changeLang, isMenuOpen, toggleMenu, closeMenu, user };
+        return { t, changeLang, isMenuOpen, toggleMenu, closeMenu, user, isDarkMode, toggleDarkMode };
     }
 });
 
