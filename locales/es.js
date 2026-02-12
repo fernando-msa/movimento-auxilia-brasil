@@ -20,9 +20,9 @@ export default {
     missions: {
         title: 'Nuestras Misiones',
         aracaju: 'Misión Aracaju',
-        aracajuDesc: 'Sede Principal',
+        aracajuDesc: 'Sede Principal - Donde todo comenzó.',
         fortaleza: 'Misión Fortaleza',
-        fortalezaDesc: 'Av. Beira Mar, 456 - Meireles'
+        fortalezaDesc: 'Av. Beira Mar, 456 - Llevando alegría a Ceará.'
     },
     spirituality: {
         title: 'Espiritualidad',
@@ -34,7 +34,15 @@ export default {
     },
     pastorals: {
         title: 'Nuestras Pastorales',
-        knowMore: 'Conozca más'
+        knowMore: 'Sepa Más',
+        vocational: 'Pastoral Vocacional',
+        vocationalDesc: 'Acompañamiento y discernimiento para jóvenes que buscan descubrir su lugar en la Iglesia.',
+        music: 'Ministerio de Música',
+        musicDesc: 'Evangelizar a través del arte, tocando corazones con melodías que elevan el alma.',
+        social: 'Acción Social',
+        socialDesc: 'El rostro misericordioso del movimiento, llevando alimento y dignidad a los más necesitados.',
+        communication: 'Pascom',
+        communicationDesc: 'Llevando la Buena Nueva a través de las redes sociales y medios digitales.'
     },
     together: {
         heroTitle: 'Together',

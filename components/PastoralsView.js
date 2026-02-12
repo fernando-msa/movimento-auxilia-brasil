@@ -9,9 +9,10 @@ export default {
                 <div class="pastoral-card" v-for="pastoral in pastorals" :key="pastoral.id">
                     <img :src="pastoral.image" :alt="pastoral.name" class="card-img">
                     <div class="card-content">
-                        <h3>{{ pastoral.name }}</h3>
-                        <p>{{ pastoral.description }}</p>
-                        <button class="btn-more">Saiba Mais</button>
+                        <!-- Support both DB text and Translation Keys -->
+                        <h3>{{ pastoral.isMock ? $t(pastoral.name) : pastoral.name }}</h3>
+                        <p>{{ pastoral.isMock ? $t(pastoral.description) : pastoral.description }}</p>
+                        <button class="btn-more">{{ $t('pastorals.knowMore') }}</button>
                     </div>
                 </div>
             </div>
@@ -29,7 +30,8 @@ export default {
             if (!querySnapshot.empty) {
                 this.pastorals = querySnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
             } else {
-                console.log("Pastorals collection empty. Run seedData() to populate.");
+                console.log("Pastorals collection empty. Using Localized Mock Data.");
+                this.pastorals = this.getMockData();
             }
         } catch (e) {
             console.error("Error fetching pastorals:", e);
@@ -40,11 +42,12 @@ export default {
     },
     methods: {
         getMockData() {
+            // Using translation keys defined in locale files
             return [
-                { id: 1, name: 'Vocacional', description: 'Acompanhamento e discernimento vocacional para jovens.', image: 'https://placehold.co/600x400/003366/FFF?text=Vocacional' },
-                { id: 2, name: 'Difusão', description: 'Espalhando a mensagem e a devoção salesiana.', image: 'https://placehold.co/600x400/FFCC00/333?text=Difusão' },
-                { id: 3, name: 'Liturgia', description: 'Preparação e celebração dos mistérios da fé.', image: 'https://placehold.co/600x400/cc0000/FFF?text=Liturgia' },
-                { id: 4, name: 'Social', description: 'Obras de caridade e assistência aos necessitados.', image: 'https://placehold.co/600x400/006633/FFF?text=Social' }
+                { id: 1, isMock: true, name: 'pastorals.vocational', description: 'pastorals.vocationalDesc', image: 'https://placehold.co/400x300/003366/FFF?text=Vocacional' },
+                { id: 2, isMock: true, name: 'pastorals.communication', description: 'pastorals.communicationDesc', image: 'https://placehold.co/400x300/FFCC00/333?text=Pascom' },
+                { id: 3, isMock: true, name: 'pastorals.music', description: 'pastorals.musicDesc', image: 'https://placehold.co/400x300/cc0000/FFF?text=Musica' },
+                { id: 4, isMock: true, name: 'pastorals.social', description: 'pastorals.socialDesc', image: 'https://placehold.co/400x300/006633/FFF?text=Social' }
             ];
         }
     }

@@ -20,9 +20,9 @@ export default {
     missions: {
         title: 'Our Missions',
         aracaju: 'Aracaju Mission',
-        aracajuDesc: 'Main Headquarters',
+        aracajuDesc: 'Main Headquarters - Where it all began.',
         fortaleza: 'Fortaleza Mission',
-        fortalezaDesc: 'Av. Beira Mar, 456 - Meireles'
+        fortalezaDesc: 'Av. Beira Mar, 456 - Bringing joy to Ceará.'
     },
     spirituality: {
         title: 'Spirituality',
@@ -34,7 +34,15 @@ export default {
     },
     pastorals: {
         title: 'Our Pastorals',
-        knowMore: 'Learn more'
+        knowMore: 'Learn More',
+        vocational: 'Vocational Ministry',
+        vocationalDesc: 'Accompaniment and discernment for young people seeking to discover their place in the Church.',
+        music: 'Music Ministry',
+        musicDesc: 'Evangelizing through art, touching hearts with melodies that elevate the soul.',
+        social: 'Social Action',
+        socialDesc: 'The merciful face of the movement, bringing food and dignity to those in need.',
+        communication: 'Communication',
+        communicationDesc: 'Bringing the Good News through social networks and digital media.'
     },
     together: {
         heroTitle: 'Together',
